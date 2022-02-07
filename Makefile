@@ -216,6 +216,7 @@ untar:
 FRAMERATE := 24
 OUTPUT := output$(app)
 
+
 jpeg: 
 	@magick identify -format "%h" $(OUTPUT)/initial.svg >> __H.txt 
 	@magick identify -format "%w" $(OUTPUT)/initial.svg >> __W.txt 
@@ -232,6 +233,7 @@ movie:
 	ffmpeg -r $(FRAMERATE) -f image2 -i $(OUTPUT)/snapshot%08d.jpg -vcodec libx264 -pix_fmt yuv420p -strict -2 -tune animation -crf 15 -acodec none $(OUTPUT)/out.mp4
 	
 jpegandmovie: 
+	echo output$(app)
 	@magick identify -format "%h" $(OUTPUT)/initial.svg >> __H.txt 
 	@magick identify -format "%w" $(OUTPUT)/initial.svg >> __W.txt 
 	@expr 2 \* \( $$(grep . __H.txt) / 2 \) >> __H1.txt 

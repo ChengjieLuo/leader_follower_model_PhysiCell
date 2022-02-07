@@ -197,6 +197,11 @@ int main( int argc, char* argv[] )
 	
 	try 
 	{	
+	// std::cout<<"luo parameters.necrosis_type="<<(*all_cells)[0]->parameters.necrosis_type<<std::endl;
+	// std::cout<<"luo PhysiCell_constants::deterministic_necrosis="<<PhysiCell_constants::deterministic_necrosis<<std::endl;
+	// std::cout<<"luo parameters.o2_necrosis_threshold ="<<(*all_cells)[0]->parameters.o2_necrosis_threshold <<std::endl;
+	// 	std::cout<<"luo parameters.max_necrosis_rate ="<<(*all_cells)[0]->parameters.max_necrosis_rate <<std::endl;
+
 		while( PhysiCell_globals.current_time < t_max + 0.1*diffusion_dt )
 		{
 			// save data if it's time. 
@@ -259,6 +264,19 @@ int main( int argc, char* argv[] )
 			
 			// run PhysiCell 
 			((Cell_Container *)microenvironment.agent_container)->update_all_cells( PhysiCell_globals.current_time );
+
+			// double maxnecrosisrate=0;
+
+			// for( int i=0; i < (*all_cells).size(); i++ )
+			// {
+			// 	static int necrosis_index = (*all_cells)[i]->phenotype.death.find_death_model_index( PhysiCell_constants::necrosis_death_model ); 
+			// 	if((*all_cells)[i]->phenotype.death.rates[necrosis_index] > maxnecrosisrate)
+			// 	maxnecrosisrate=(*all_cells)[i]->phenotype.death.rates[necrosis_index] ;
+			// }
+			// std::cout<<"luo: maxnecrosisrate="<<maxnecrosisrate <<std::endl;
+
+
+
 			
 			//add ECM update here!
             

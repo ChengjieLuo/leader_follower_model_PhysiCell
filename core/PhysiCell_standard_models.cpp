@@ -873,6 +873,7 @@ void update_cell_and_death_parameters_O2_based( Cell* pCell, Phenotype& phenotyp
 	
 	phenotype.cycle.data.transition_rate(start_phase_index,end_phase_index) = multiplier * 
 		pCell->parameters.pReference_live_phenotype->cycle.data.transition_rate(start_phase_index,end_phase_index);
+	//std::cout<<"luo:pCell->parameters.pReference_live_phenotype->cycle.data.transition_rate(start_phase_index,end_phase_index)"<<pCell->parameters.pReference_live_phenotype->cycle.data.transition_rate(start_phase_index,end_phase_index)<<std::endl;
 	
 	// Update necrosis rate
 	multiplier = 0.0;
@@ -880,6 +881,7 @@ void update_cell_and_death_parameters_O2_based( Cell* pCell, Phenotype& phenotyp
 	{
 		multiplier = ( pCell->parameters.o2_necrosis_threshold - pO2 ) 
 			/ ( pCell->parameters.o2_necrosis_threshold - pCell->parameters.o2_necrosis_max );
+		std::cout<<"luo: pO2"<<pO2<<std::endl;
 	}
 	if( pO2 < pCell->parameters.o2_necrosis_max )
 	{ 
@@ -892,7 +894,7 @@ void update_cell_and_death_parameters_O2_based( Cell* pCell, Phenotype& phenotyp
 	
 	// check for deterministic necrosis 
 	
-	if( pCell->parameters.necrosis_type == PhysiCell_constants::deterministic_necrosis && multiplier > 1e-16 )
+if( pCell->parameters.necrosis_type == PhysiCell_constants::deterministic_necrosis && multiplier > 1e-16 )
 	{ pCell->phenotype.death.rates[necrosis_index] = 9e99; } 
 	
 	return; 

@@ -38,6 +38,8 @@ outputfolder=r"D:\ChengjieLuo\Research_TUE\Friedl Peter and Felix\examples_Physi
 outputfolder=r"D:\ChengjieLuo\Research_TUE\Friedl Peter and Felix\examples_PhysiCell\trmotility-r17\src"
 outputfolder=r"D:\ChengjieLuo\Research_TUE\Friedl Peter and Felix\test_PhysiCell\leader_follower_model\output"
 #outputfolder=r"D:\ChengjieLuo\Research_TUE\Friedl Peter and Felix\test_PhysiCell\physicellecm-r34\src\output_1_1"
+outputfolder=r"D:\ChengjieLuo\Research_TUE\Friedl Peter and Felix\test_PhysiCell\leader_follower_model\output_2d_leader_boundary\noleadercell"
+#outputfolder=r"D:\ChengjieLuo\Research_TUE\Friedl Peter and Felix\test_PhysiCell\leader_follower_model\output_2d_leader_boundary\nofollowercell"
 
 flag_series=0
 tmax=25
@@ -157,7 +159,7 @@ if flag_series==1:
     plt.show()
 
 
-n=200
+n=330
 filename='output'+"%08i"%n+'.xml'
 #filename='initial.xml'
 mcds=pyMCDS(filename,outputfolder)
@@ -197,12 +199,13 @@ o2 = mcds.get_concentrations( 'oxygen' );
 X,Y = mcds.get_2D_mesh();
 plt.figure()
 plt.contourf(X,Y,o2[:,:,0],20);
+print(o2.min())
 #plt.plot(x,y,'r.')
 #plt.contourf(X,Y,o2[:,:,10]);
 
 plt.colorbar()
 plt.axis('image')
-
+plt.title('oxygen')
 
 
 
@@ -280,6 +283,8 @@ mask = np.logical_or(dx > 1e-4, dy > 1e-4)
 plt.quiver(xx[mask], yy[mask], dx[mask], dy[mask], pivot='middle', angles='xy', units='width', headwidth=0, width=.0015)
 plt.xlim([-400,400])
 plt.ylim([-400,400])
+plt.title('ECM')
+
 #plt.quiver(xx[mask], yy[mask], dx_unscaled[mask], dy_unscaled[mask], pivot='middle', angles='xy', units='width', headwidth=0, width=.0015)
 
 

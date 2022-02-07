@@ -1442,10 +1442,10 @@ std::vector<std::string> AMIGOS_invasion_coloring_function( Cell* pCell )
 	
 		if (pCell->phenotype.cycle.current_phase().code == PhysiCell_constants::apoptotic )  // Apoptotic - Red
 		{
-			output[0] = "black";
+			output[0] = "red";
 			output[2] = "black";
-			output[1] = "black";
-			output[3] = "black";
+			output[1] = "red";
+			output[3] = "red";
 		}
 		
 		// Necrotic - Brown
@@ -1709,7 +1709,10 @@ void ecm_update_from_cell(Cell* pCell , Phenotype& phenotype , double dt)
 	double anisotropy = pCell->nearest_density_vector()[ECM_anisotropy_index]; 
     double migration_speed = pCell->phenotype.motility.migration_speed;
 
-    double r_0 = 1/1.0*migration_speed; // 1/10.0 // min-1 // NOTE!!! on 08.06.18 run - this wasn't multiplied by migration_speed!!! should be the same but worth noting!!!!
+	double r_al0=parameters.doubles("r_al0");
+	//std::cout<<"luo: r_al0="<<r_al0<<std::endl;
+    //double r_0 = 1/1.0*migration_speed; // 1/10.0 // min-1 // NOTE!!! on 08.06.18 run - this wasn't multiplied by migration_speed!!! should be the same but worth noting!!!!
+    double r_0 = r_al0/1.0*migration_speed; // 1/10.0 // min-1 // NOTE!!! on 08.06.18 run - this wasn't multiplied by migration_speed!!! should be the same but worth noting!!!!
 
     double r_realignment = r_0 * (1-anisotropy);
 
@@ -1741,10 +1744,14 @@ void ecm_update_from_cell(Cell* pCell , Phenotype& phenotype , double dt)
     // End Cell-ECM Fiber realingment
     
     // Cell-ECM Anisotrophy Modification
-    
-    double r_a0 = 1.0/1000.0; // min-1
+    double r_a0=parameters.doubles("r_a0");
+	//std::cout<<"luo: r_a0="<<r_al0<<std::endl;
+
+    //double r_a0 = 1.0/1000.0; // min-1
     double r_anisotropy = r_a0 * migration_speed;
-   	
+
+
+
     pCell->nearest_density_vector()[ECM_anisotropy_index] = anisotropy + r_anisotropy * dt  * (1- anisotropy);
     
     // END Cell-ECM Anisotropy Modification
